@@ -1,0 +1,92 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 50%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #333;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Todo Manager</h1>
+</header>
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <label for="project_title">Project Title</label>
+        <input type="text" id="project_title" name="project_title" value="{{ todo.project_title }}">
+
+        <label for="todo_name">Todo Name</label>
+        <input type="text" id="todo_name" name="todo_name" value="{{ todo.todo_name }}">
+
+        <label for="todo_description">Description</label>
+        <textarea id="todo_description" name="todo_description">{{ todo.todo_description }}</textarea>
+
+        <label for="created_time">Created Time</label>
+        <input type="text" id="created_time" name="created_time" placeholder="YYYY-MM-DD HH:MM" value="{{ todo.created_time|date:'Y-m-d H:i' }}">
+
+        <label for="status">Status</label>
+        <select id="status" name="status">
+            <option value="pending" {% if todo.status == 'pending' %}selected{% endif %}>Pending</option>
+            <option value="in-progress" {% if todo.status == 'in-progress' %}selected{% endif %}>In Progress</option>
+            <option value="completed" {% if todo.status == 'completed' %}selected{% endif %}>Completed</option>
+        </select>
+
+        <button type="submit">UPDATE</button>
+    </form>
+</div>
+</body>
+</html>

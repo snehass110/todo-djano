@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Project</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+        }
+        .section-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .section {
+            width: 500px;
+            margin-bottom: 30px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+         .btn-detailed-view:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Todo Manager</h1>
+</header>
+<div class="section-container">
+    <div class="section">
+        <h1>Project Details</h1>
+        {% for project_title, todo_name, todo_description, created_time, status in k %}
+
+        {% endfor %}
+        <div style="margin-top: 20px;">
+            <h1>{{ project_title }}</h1>
+
+                <h4><i><strong>Summary:</strong> {{ completed_tasks_count }} / {{ completed_tasks_count|add:pending_tasks_count }} tasks completed, {{ pending_tasks_count }} pending tasks</i></h4>
+
+            <h3>Pending</h3>
+
+                {% for todo in todos %}
+                    {% if todo.status == 'pending' or todo.status == 'in-progress' %}
+            <h5>{{ todo.todo_name }}</h5>
+                    {% endif %}
+                {% endfor %}
+
+            <h3>Completed</h3>
+
+                {% for todo in todos %}
+                    {% if todo.status == 'completed' %}
+                       <h4>{{ todo.todo_name }}</h4>
+                    {% endif %}
+                {% endfor %}
+
+        </div>
+<a href="/viewdetail/{{ project_title }}/" class="btn" style="color: white; background-color: black; padding: 10px 20px; border-radius: 5px; text-decoration: none; display: inline-block; transition: background-color 0.3s; margin-left:300px;">Detailed View</a>
+
+
+
+    </div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

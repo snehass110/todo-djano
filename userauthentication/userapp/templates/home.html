@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Manager - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        main {
+            padding: 20px;
+        }
+
+        section {
+            margin-bottom: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        section h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        #projects-list {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #projects-list li {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #projects-list li a {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+            flex: 1;
+            text-decoration: none;
+        }
+
+        .btn-view-project {
+            margin-left: 10px;
+            margin-right: 100px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Todo Manager</h1>
+    </header>
+
+    <main>
+        <section id="create-project">
+            <h2>Create New Project</h2>
+            <form id="create-project-form" method="post" action="/create/">
+                {% csrf_token %}
+                <input type="text" class="form-control" placeholder="Enter project title" name="project_title"><br>
+                <button class="btn btn-dark" type="submit">Create New Project</button>
+            </form>
+        </section>
+
+        <section id="list-projects">
+            <ul id="projects-list">
+                {% for project_title in unique_project_titles %}
+                <li>
+                    <a>{{ project_title }}</a>
+                    <a href="/view/{{ project_title }}/" class="btn btn-dark btn-view-project" style="color:white;">View Project</a>
+                </li>
+                {% empty %}
+                <li>No projects found</li>
+                {% endfor %}
+            </ul>
+            <p><b>Total projects: {{ unique_project_titles|length }}</b></p>
+        </section>
+    </main>
+
+</body>
+</html>

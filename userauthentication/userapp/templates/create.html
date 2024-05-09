@@ -1,0 +1,95 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project with To-Dos</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            background-color: #f0f0f0;
+        }
+        section {
+            margin-bottom: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-container {
+            border: 1px solid black;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 500px;
+            text-align: center;
+            background-color: #fff;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Todo Manager</h1>
+</header>
+<div style="text-align: center;">
+    {% if project_title %}
+        <h3>Project Created Successfully</h3>
+        <h5>Project Title: {{ project_title }}</h5>
+        <h4>ADD TODOS</h4>
+    {% endif %}
+</div><form method="post" class="form-container" action="/createtodo/">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="project-title" class="form-label">Project Title:</label>
+        <input type="text" name="project_title" class="form-control" id="project-title" readonly value="{{ project_title }}">
+    </div>
+
+    <div class="mb-3">
+        <label for="todo-name" class="form-label">Todo Name:</label>
+        <input type="text" name="todo_name" class="form-control" id="todo-name" placeholder="Enter todo name">
+    </div>
+
+    <div class="mb-3">
+        <label for="todo-description" class="form-label">Todo Description:</label>
+        <textarea class="form-control" name="todo_description" id="todo-description" rows="3" placeholder="Enter todo description"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label for="created-time" class="form-label">Created Time:</label>
+        <input type="datetime-local" name="created_time" class="form-control" id="created-time">
+    </div>
+
+    <div class="mb-3">
+        <label for="status" class="form-label">Status:</label>
+        <select class="form-select" id="status" name="status">
+            <option value="pending">Pending</option>
+            <option value="in-progress">In Progress</option>
+            <option value="completed">Completed</option>
+        </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+
+<br><br>
+
+<footer class="bg-dark text-light py-3">
+    <div class="container text-center">
+
+    </div>
+</footer>
+</body>
+</html>
+
+
+
+
+
+
